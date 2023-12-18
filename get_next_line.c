@@ -6,7 +6,7 @@
 /*   By: hzibari <hzibari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 10:41:36 by hzibari           #+#    #+#             */
-/*   Updated: 2023/12/18 14:38:21 by hzibari          ###   ########.fr       */
+/*   Updated: 2023/12/18 15:37:06 by hzibari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,32 @@ char	*get_next_line(int fd)
 	}
 	storage = next_line(storage);
 	return (ret);
+}
+
+int main(void)
+{
+   char *lines;
+
+   int        i = 0;
+   int        fd;
+
+   fd = open("file.txt", O_RDONLY);
+   if (fd < 0)
+   {
+       printf("doesn't work\n");
+       close (fd);
+       return (0);
+   }
+   while (1)
+   {
+       lines = get_next_line(fd);
+       if (lines == NULL)
+           break ;
+       i++;
+       printf("[%d] :%s", i, lines);
+       free(lines);
+       lines = NULL;
+   }
+   printf("%s", lines);
+   close (fd);
 }
